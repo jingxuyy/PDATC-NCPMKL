@@ -1,13 +1,13 @@
 ## PDATC-NCPMKL: Predicting drug’s Anatomical Therapeutic Chemical (ATC) codes based on network consistency projection and multiple kernel learning
 
-
 This code is an implementation of our paper
-"**PDATC-NCPMKL: a novel approach based on network consistency projection and multi-kernel learning to predict of drug's Anatomical Therapeutic Chemical (ATC) code**"
+"**PDATC-NCPMKL: Predicting drug’s Anatomical Therapeutic Chemical (ATC) codes based on network consistency projection and multiple kernel learning**"
 
 We proposed a model PDATC-NCPMKL based on multi-kernel learning and network consistency projection algorithm. By integrating multi-source information of drugs (drug and target protein, drug and side effect, drug and interaction, drug and fingerprint, and drug and ATC information), the similarity was calculated from drug kernel space and ATC kernel space by the multi-kernel learning algorithm. A network consistency projection was then used by pretreating the drug and ATC label matrix to predict the ATC code of the compound in the **second, third, and fourth levels**.
 
 In our problem setting of ATC prediction,
 The input is 5 matrices:
+
 1. Drug-atc matrix.
 2. Drug-target protein matrix.
 3. Drug-fingerprint matrix.
