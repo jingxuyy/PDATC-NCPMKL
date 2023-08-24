@@ -55,40 +55,36 @@ class Options(object):
                                                          drug_interaction_kernel, drug_target_protein_kernel,
                                                          drug_side_effects_kernel)
 
-            # --------ATC空间--------
-            # 产生理想核矩阵
+
             K_ideal_ATC = knormalized(train_data.values.T)
 
             K_gip_ATC, K_corr_ATC, K_cos_ATC, K_jaccard_ATC, K_mi_ATC = generative_sub_kernel(train_data.values.T)
             ATC_atc_columns_kernel = alignment(K_ideal_ATC, K_gip_ATC, K_corr_ATC, K_cos_ATC, K_jaccard_ATC, K_mi_ATC)
 
-            # 概率ATC核矩阵
+
             SPro = Similarity(train_data)
             ATC_atc_probabilistic_kernel = SPro.probabilistic_kernel(
                 path=f'./shortest_path/new_{self.level}ATC_shortest_path_length_matrix.csv')
-            # SM ATC核矩阵
+
             SM = Layered(list(self.drug_atc.columns), level=self.level)
             ATC_atc_SM_kernel = SM.get_SM_kernel()
 
-            # 核融合
+
             atc_global_kernel = atc_matrix_combination(
                 [ATC_atc_columns_kernel, ATC_atc_probabilistic_kernel, ATC_atc_SM_kernel])
 
-            # -------- 训练集关系矩阵预处理 ------
+
             WK = WKNKN(drug_global_kernel, atc_global_kernel, train_data.values, self.omega)
             F_train_inference = WK.get_scores()
 
-            # --------- 网络一致性投影 -------------
+
             nsp = NSP(drug_global_kernel, atc_global_kernel, F_train_inference)
             predict = nsp.network_NSP()
-            # --------- 获取训练结果分数------------
-            # 1.正样本
-            # 1.1正样本下标
+
             positive_index = positive_array[:, 0]
             positive_column = positive_array[:, 1]
             positive_scores = pd.DataFrame(predict[positive_index, positive_column])
-            # 2. 负样本
-            # 2.1负样本下标
+
             negative_index = negative_array[:, 0]
             negative_column = negative_array[:, 1]
             negative_scores = pd.DataFrame(predict[negative_index, negative_column])
@@ -96,7 +92,6 @@ class Options(object):
             empty_predict_dataframe = empty_predict_dataframe.append(positive_scores)
             empty_predict_dataframe = empty_predict_dataframe.append(negative_scores)
 
-            # --------- 实际的标签 -----------------
             actual_positive = pd.DataFrame(self.drug_atc.values[positive_index, positive_column])
             actual_negative = pd.DataFrame(self.drug_atc.values[negative_index, negative_column])
 
