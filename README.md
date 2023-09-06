@@ -83,6 +83,7 @@ You need to re-prepare the above 7 files, the file format is CSV
 For other normal dataset, whose format is like below:
 
 1. The adjacency matrix of drug-ATC code
+
 |DrugBankID|code***1***|code***2***|code***3***|code***4***|...|code***m***|
 |:----|:----|:----|:----|:----|:----|:----|
 |drugID***1***|0|1|1|0|...|0|
@@ -92,6 +93,7 @@ For other normal dataset, whose format is like below:
 |drugID***n***|0|0|1|1|...|0|
 
 2. The adjacency matrix of drug-fingerprint
+
 |DrugBankID|F*1*|F*2*|F*3*|F*4*|...| 
 |:---|:---|:---|:---|:---|:---|
 |drugID***1***|0|1|1|0|...| 
@@ -101,6 +103,7 @@ For other normal dataset, whose format is like below:
 |drugID***n***|0|0|1|1|...|
 
 3. The matrix of drug-interaction
+
 |DrugBankID|drugID***1***|drugID***2***|drugID***3***|drugID***4***|...|drugID***n***|
 |:----|:----|:----|:----|:----|:----|:----|
 |drugID***1***|1|0.3|0|0.75|...|0.33|
@@ -111,6 +114,7 @@ For other normal dataset, whose format is like below:
 |drugID***n***|0.33|0.68|0.47|0.92|...|1|
 
 4. The adjacency matrix of drug-side effects
+
 |DrugBankID|side*1*|side*2*|side*3*|side*4*|...| 
 |:---|:---|:---|:---|:---|:---|
 |drugID***1***|1|0|0|1|...| 
@@ -120,6 +124,7 @@ For other normal dataset, whose format is like below:
 |drugID***n***|0|0|1|1|...|
 
 5. The adjacency matrix of drug-side effects
+
 |DrugBankID|target*1*|target*2*|target*3*|target*4*|...| 
 |:---|:---|:---|:---|:---|:---|
 |drugID***1***|0|1|0|1|...| 
