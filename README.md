@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
 You need to prepare some files, which are all in CSV format. The detailed format is displayed as below:
 
-1. The adjacency matrix of drug-ATC code associations
+#### 1. The adjacency matrix of drug-ATC code associations
 
 |DrugBankID|code***1***|code***2***|code***3***|code***4***|...|code***m***|
 |:----|:----|:----|:----|:----|:----|:----|
@@ -77,7 +77,7 @@ You need to prepare some files, which are all in CSV format. The detailed format
 |...|...|...|...|...|...|...|
 |drugID***n***|0|0|1|1|...|0|
 
-2. Drug fingerprints matrix
+#### 2. Drug fingerprints matrix
 
 |DrugBankID|F*1*|F*2*|F*3*|F*4*|...| 
 |:---|:---|:---|:---|:---|:---|
@@ -87,7 +87,7 @@ You need to prepare some files, which are all in CSV format. The detailed format
 |...|...|...|...|...|...| 
 |drugID***n***|0|0|1|1|...|
 
-3. Drug interaction kernel
+#### 3. Drug interaction kernel
 
 |DrugBankID|drugID***1***|drugID***2***|drugID***3***|drugID***4***|...|drugID***n***|
 |:----|:----|:----|:----|:----|:----|:----|
@@ -98,7 +98,7 @@ You need to prepare some files, which are all in CSV format. The detailed format
 |...|...|...|...|...|...|...|
 |drugID***n***|0.33|0.68|0.47|0.92|...|1|
 
-4. Drug side effects matrix
+#### 4. Drug side effects matrix
 
 |DrugBankID|side*1*|side*2*|side*3*|side*4*|...| 
 |:---|:---|:---|:---|:---|:---|
@@ -108,7 +108,7 @@ You need to prepare some files, which are all in CSV format. The detailed format
 |...|...|...|...|...|...| 
 |drugID***n***|0|0|1|1|...|
 
-5. Drug target proteins matrix
+#### 5. Drug target proteins matrix
 
 |DrugBankID|target*1*|target*2*|target*3*|target*4*|...| 
 |:---|:---|:---|:---|:---|:---|
@@ -118,7 +118,7 @@ You need to prepare some files, which are all in CSV format. The detailed format
 |...|...|...|...|...|...| 
 |drugID***n***|0|0|1|0|...|
 
-6. Because it involves ATC code tree structure to find the shortest path, different data sets involve different ATC, so you should prepare the shortest path file for ATC codes at different levels. It is also in CSV format, as shown below
+#### 6. Because it involves ATC code tree structure to find the shortest path, different data sets involve different ATC, so you should prepare the shortest path file for ATC codes at different levels. It is also in CSV format, as shown below
 
 ||ATCcode***1***|ATCcode***2***|ATCcode***3***|ATCcode***4***|...|ATCcode***m***|
 |:----|:----|:----|:----|:----|:----|:----|
