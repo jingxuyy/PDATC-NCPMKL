@@ -153,9 +153,9 @@ After running our model, the **PDATC-NCPMKL_predict.csv** file and **PDATC-NCPMK
 
 
 ## Result
-The PR curve and ROC curve predicted by our model on the dataset are shown below:
-1. The PR curve
+The PR curves and ROC curves predicted by our model on the dataset are shown below:
+1. The PR curves
 ![](PR.png)
-2. The ROC curve
+2. The ROC curves
 ![](AUC.png)
 
