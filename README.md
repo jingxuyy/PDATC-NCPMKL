@@ -5,22 +5,8 @@ This code is an implementation of our paper
 
 We proposed a model PDATC-NCPMKL based on multiple kernel learning and network consistency projection algorithm. By integrating multi-source information of drugs (drug target protein, drug side effect, drug interaction, drug fingerprint, and drug-ATC code association), several drug kernels were constructed. In the same way, the ATC code kernels were set up. The drug and ATC code kernels were fused into a unified drug kernel and ATC code kernel by a multiple kernel learning algorithm and a kernel integrated scheme. On the other hand, the drug-ATC code association adjacency matrix was reformulated by a variant of **weighted K nearest known neighbors (WKNKN)**. Above kernels and matrix were fed into the network consistency projection to generate the association score matrix. The model was tested on the ATC codes at **the second, third and fourth levels** using **ten-fold cross-validation**. For detailed descriptions on the model and results, please refer to our article.
 
-In our problem setting of ATC prediction,
-The input is 5 matrices:
-
-1. Drug-atc matrix.
-2. Drug-target protein matrix.
-3. Drug-fingerprint matrix.
-4. Drug-side effect matrix.
-5. Drug-interaction matrix.
-
-The output is the predicted score matrix and the true label matrix.
-Drug fingerprint information 1024 dimensional vectors were obtained using SMILES information of drugs using RDKit, an open-source chemical framework.
-Our PDATC-NCPMKL forecast is outlined below:
 
 ![](model.png)
-
-For each module of the above process please read our paper.
 
 ## Requirements
 
@@ -70,19 +56,18 @@ if __name__ == "__main__":
     op = Options(drug_atc_path=drug_atc_path, level=4, omega=0.9)
     op.train(k=10)
 ~~~
-- where **drug_atc_path** is the file path where the adjacency matrix of drug and ATC code resides.
-- The value of the **level** parameter represents the number of layers of ATC code predicted by the PDATC-NCPMKL model. You can try different layers, for example: **level=2, level=3, level=4**.
-- The parameter **omega** represents the value of WKNKN in the Reformulation of adjacency matrix for drug-ATC association. You can set it to any decimal **between 0.0 and 1.0**.
-- The value of parameter **k** represents **k-fold cross-validation**, and k is set to 10 in our experiment. You can set it to other integers.
+- **drug_atc_path** is the file path storing the adjacency matrix of drug and ATC codes.
+- The parameter **level** represents the level of ATC codes. **It can be 2, 3 and 4**.
+- The parameter **omega** represents parameter in WKNKN when reformulating the adjacency matrix. It can be any numbers **between 0.0 and 1.0**.
+- The parameter **k** represents the number of folds in cross-validation. **k was set to 10 in our study**.
 
 ### 2. Use your own data set
 
 ### 2.1 Preprocessed data set
 
-You need to re-prepare the above 7 files, the file format is CSV
-For other normal dataset, whose format is like below:
+You need to prepare some files, which are all in CSV format. The detailed format is displayed as below:
 
-1. The adjacency matrix of drug-ATC code
+1. The adjacency matrix of drug-ATC code associations
 
 |DrugBankID|code***1***|code***2***|code***3***|code***4***|...|code***m***|
 |:----|:----|:----|:----|:----|:----|:----|
@@ -92,7 +77,7 @@ For other normal dataset, whose format is like below:
 |...|...|...|...|...|...|...|
 |drugID***n***|0|0|1|1|...|0|
 
-2. The adjacency matrix of drug-fingerprint
+2. Drug fingerprints matrix
 
 |DrugBankID|F*1*|F*2*|F*3*|F*4*|...| 
 |:---|:---|:---|:---|:---|:---|
@@ -102,7 +87,7 @@ For other normal dataset, whose format is like below:
 |...|...|...|...|...|...| 
 |drugID***n***|0|0|1|1|...|
 
-3. The matrix of drug-interaction
+3. Drug interaction kernel
 
 |DrugBankID|drugID***1***|drugID***2***|drugID***3***|drugID***4***|...|drugID***n***|
 |:----|:----|:----|:----|:----|:----|:----|
@@ -113,7 +98,7 @@ For other normal dataset, whose format is like below:
 |...|...|...|...|...|...|...|
 |drugID***n***|0.33|0.68|0.47|0.92|...|1|
 
-4. The adjacency matrix of drug-side effects
+4. Drug side effects matrix
 
 |DrugBankID|side*1*|side*2*|side*3*|side*4*|...| 
 |:---|:---|:---|:---|:---|:---|
@@ -123,7 +108,7 @@ For other normal dataset, whose format is like below:
 |...|...|...|...|...|...| 
 |drugID***n***|0|0|1|1|...|
 
-5. The adjacency matrix of drug-side effects
+5. Drug target proteins matrix
 
 |DrugBankID|target*1*|target*2*|target*3*|target*4*|...| 
 |:---|:---|:---|:---|:---|:---|
@@ -133,8 +118,7 @@ For other normal dataset, whose format is like below:
 |...|...|...|...|...|...| 
 |drugID***n***|0|0|1|0|...|
 
-### 2.2 Preprocessing ATC code shortest path
-Because it involves ATC code tree structure to find the shortest path, different data sets involve different ATC, so you should prepare different levels of ATC code shortest path file, which is also CSV format, as follows:
+6. Because it involves ATC code tree structure to find the shortest path, different data sets involve different ATC, so you should prepare the shortest path file for ATC codes at different levels. It is also in CSV format, as shown below
 
 ||ATCcode***1***|ATCcode***2***|ATCcode***3***|ATCcode***4***|...|ATCcode***m***|
 |:----|:----|:----|:----|:----|:----|:----|
@@ -146,7 +130,8 @@ Because it involves ATC code tree structure to find the shortest path, different
 |ATCcode***m***|4|6|8|2|...|0|
 - You should put this file in the **PDATC-NCPMKL/shortest_path/** folder, and it should have **the same file name as mine**. (**For example, the second level ATC code file is named new_2ATC_shortest_path_length_matrix.csv**)
 - In addition, in order to prevent the accuracy of SPro kernel matrix calculation, ensure that the **order of ATCcode** here is consistent with that in **the adjacency matrix of drug-ATC code**.
-### 2.3 Cross verification
+
+### 2.2 Cross verification
 You just need to modify the following code in the **main.py** file to run it:
 ~~~python
 def file_path(self):
