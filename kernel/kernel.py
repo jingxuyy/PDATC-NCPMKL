@@ -42,7 +42,7 @@ class KernelMatrix(object):
 
     def kernel2cos(self, noise):
         X = self.transpose() + noise
-        num = np.dot(X, X.T)  # 向量点乘
+        num = np.dot(X, X.T)  
         a = np.linalg.norm(X, axis=1).reshape(1, -1)
         b = np.linalg.norm(X, axis=1).reshape(1, -1)
         denom = np.dot(a.T, b)
