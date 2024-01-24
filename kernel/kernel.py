@@ -73,7 +73,7 @@ class KernelMatrix(object):
 
         for i in range(length):
             a_vec = X[i, :]
-            for j in range(i, length):
+            for j in range(i+1):
                 b_vec = X[j, :]
                 kernel[i, j] = metrics.mutual_info_score(a_vec, b_vec)
                 kernel[j, i] = kernel[i, j]

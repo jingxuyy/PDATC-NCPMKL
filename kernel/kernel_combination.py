@@ -7,9 +7,8 @@ def drug_matrix_combination(fingerprint_kernel, atc_kernel, interaction_kernel, 
 
     kernel = np.zeros((fingerprint_kernel.shape[0], fingerprint_kernel.shape[0]))
 
-    length = fingerprint_kernel.shape[0]
-    for i in range(length):
-        for j in range(i, length):
+    for i in range(fingerprint_kernel.shape[0]):
+        for j in range(i+1):
             if m_kernel[i, j] == 0:
                 kernel[i, j] = s_kernel[i, j]
                 kernel[j, i] = kernel[i, j]
